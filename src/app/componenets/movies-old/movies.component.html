@@ -1,0 +1,47 @@
+<div class="center">
+    <button pButton type="button" label="Clear data" icon="pi pi-trash" style="margin-right: 0.25em"
+    (click)="clearData()"></button>
+<div style="margin: 10px;">
+<ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+(onFileLeave)="fileLeave($event)">
+</ngx-file-drop>
+
+</div>
+<ng-container *ngIf="moviesService.loading; else showData">
+<p-progressSpinner></p-progressSpinner>
+</ng-container>
+
+<ng-template #showData>
+<ng-container *ngIf="moviesService.moviesMap.size > 0">
+<div class="card-container">
+<p-card *ngFor="
+  let movie of moviesService.moviesMap | keyvalue;
+  let i = index" 
+  [header]="movie.value.title" [subheader]="movie.value.release_date | date" [style]="{ width: '360px' }"
+styleClass="ui-card-shadow">
+<p-header>
+  <img src="Card" src="https://image.tmdb.org/t/p/original/{{
+      movie.value.poster_path
+    }}" />
+</p-header>
+<div class="sub-headline">
+  Time: {{movie.value.runtime |m2h}}
+</div>
+<div >
+  <div class="sub-headline2">
+    Genres:
+  </div>
+  <p-chips [(ngModel)]="movie.value.genres" disabled="true" field="name"></p-chips>
+</div>
+<div>{{ movie.value.overview }}</div>
+<!-- <div>Rating : {{ movie.value.vote_average }}</div> -->
+
+<p-footer>
+  <button pButton type="button" label="Imdb" icon="pi pi-check" style="margin-right: 0.25em"
+    (click)="goToLink(movie.value.imdb_id)"></button>
+</p-footer>
+</p-card>
+</div>
+</ng-container>
+</ng-template>
+</div>

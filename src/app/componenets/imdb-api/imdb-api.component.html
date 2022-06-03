@@ -1,0 +1,28 @@
+
+  <button
+  pButton
+  type="button"
+  label="Update Api Key"
+  icon="pi pi-cloud-upload "
+  style="margin-right: 0.25em;position: absolute; right: 10px;"
+  (click)="display=true"
+  ></button>
+
+  
+
+
+<p-dialog header="Update api key" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000">
+
+    <div style="display: flex;padding: 3vh;">
+      <span class="ui-float-label">
+        <input id="float-input" type="text" size="30" pInputText [(ngModel)]="apiKey"> 
+        <label for="float-input">Api Key</label>
+    </span>
+    </div>
+  
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="updateApiKey();display=false" label="Update"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="display=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+  
+  </p-dialog>

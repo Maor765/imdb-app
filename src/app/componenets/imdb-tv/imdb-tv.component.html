@@ -1,0 +1,78 @@
+<div class="center">
+  <div style="display: flex;justify-content: space-around;">
+    <div style="display: flex;justify-content: space-around;align-items: center;">
+      Count : {{tvsService?.tvData?.length}}
+    </div>
+    <button
+    pButton
+    type="button"
+    label="Clear data"
+    icon="pi pi-trash"
+    style="margin-right: 0.25em"
+    (click)="clearData()"
+  ></button>
+    
+    <p-dropdown [options]="filterUtilService.sortFieldsOptions"
+     [(ngModel)]="selectedSort" placeholder="Select a Sort" 
+     [showClear]="true" (onChange)="onChangeSort()"> </p-dropdown>
+
+     <p-toggleButton onLabel="Desc" offLabel="Asc" 
+     (onChange)="ascDescChange($event)"
+     offIcon="pi pi-sort-alpha-up" onIcon="pi pi-sort-alpha-down" [(ngModel)]="isAsc"></p-toggleButton>
+
+    <p-multiSelect  [options]="tvsService.allGenres"
+     [(ngModel)]="selectedGenre" placeholder="Select a Genre"  maxSelectedLabels="5"
+      optionLabel="key" (onChange)="onChangeGenre()"> </p-multiSelect >
+
+      <input type="text" (ngModelChange)="onChangeFilterInput($event)" pInputText [(ngModel)]="filterData"/>
+
+  </div>
+  <div style="margin: 10px">
+    <ngx-file-drop
+      dropZoneLabel="Drop files here"
+      [directory]="true"
+      (onFileDrop)="dropped($event)"
+    >
+    </ngx-file-drop>
+  </div>
+
+  <ng-container *ngIf="tvsService?.tvData?.length > 0">
+    <div class="card-container">
+      <p-card
+        *ngFor="let tv of tvsService.tvData ; let i = index"
+        [header]="tv.title"
+        [subheader]="tv.releaseDate | date"
+        [style]="{ width: '360px' }"
+        styleClass="ui-card-shadow"
+      >
+        <p-header>
+          <img [src]="tv.image" />
+        </p-header>
+        <div class="sub-headline3">Rating : {{ tv.imDbRating }}</div>
+
+        <div class="sub-headline">Time: {{ tv.runtimeStr }}</div>
+        <div>
+          <div class="sub-headline2">Genres:</div>
+
+          <p-chips
+            [(ngModel)]="tv.genreList"
+            disabled="true"
+            field="key"
+          ></p-chips>
+        </div>
+        <div>{{ tv.plot }}</div>
+
+        <p-footer>
+          <button
+            pButton
+            type="button"
+            label="Imdb"
+            icon="pi pi-external-link"
+            style="margin-right: 0.25em"
+            (click)="goToLink(tv.id)"
+          ></button>
+        </p-footer>
+      </p-card>
+    </div>
+  </ng-container>
+</div>
