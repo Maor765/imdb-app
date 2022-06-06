@@ -1,12 +1,13 @@
 
 <app-imdb-api></app-imdb-api>
 
-<p-tabView>
+<p-tabView (onChange)="handleChange($event)">
   <p-tabPanel header="Movies">
     <app-imdb-movie></app-imdb-movie>
   </p-tabPanel>
-  <p-tabPanel header="Tvs">
+  <p-tabPanel header="Tvs" >
       <app-imdb-tv></app-imdb-tv>
   </p-tabPanel>
 </p-tabView>
 
+<!-- <router-outlet></router-outlet> -->

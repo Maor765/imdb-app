@@ -19,6 +19,7 @@
       "primeng/*": ["node_modules/primeng-lts/*"]
     }
   },
+  "exclude": ["./imdb-app-win32-x64/**/*"],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

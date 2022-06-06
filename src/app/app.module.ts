@@ -23,6 +23,7 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import { ImdbApiComponent } from './componenets/imdb-api/imdb-api.component';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     MultiSelectModule,
     DialogModule,
     InputTextModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    AppRoutingModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

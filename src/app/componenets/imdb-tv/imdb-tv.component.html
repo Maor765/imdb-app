@@ -1,7 +1,7 @@
 <div class="center">
   <div style="display: flex;justify-content: space-around;">
     <div style="display: flex;justify-content: space-around;align-items: center;">
-      Count : {{tvsService?.tvData?.length}}
+      Count : {{tvsData?.length}}
     </div>
     <button
     pButton
@@ -12,7 +12,7 @@
     (click)="clearData()"
   ></button>
     
-    <p-dropdown [options]="filterUtilService.sortFieldsOptions"
+    <p-dropdown [options]="filterUtilService.sortFieldsOptions2"
      [(ngModel)]="selectedSort" placeholder="Select a Sort" 
      [showClear]="true" (onChange)="onChangeSort()"> </p-dropdown>
 
@@ -36,28 +36,27 @@
     </ngx-file-drop>
   </div>
 
-  <ng-container *ngIf="tvsService?.tvData?.length > 0">
+  <ng-container *ngIf="tvsData?.length > 0">
     <div class="card-container">
       <p-card
-        *ngFor="let tv of tvsService.tvData ; let i = index"
-        [header]="tv.title"
-        [subheader]="tv.releaseDate | date"
+        *ngFor="let tv of tvsData ; let i = index"
+        [header]="tv.Title"
+        [subheader]="tv.Released | date"
         [style]="{ width: '360px' }"
         styleClass="ui-card-shadow"
       >
         <p-header>
-          <img [src]="tv.image" />
+          <img [src]="tv.Poster" />
         </p-header>
-        <div class="sub-headline3">Rating : {{ tv.imDbRating }}</div>
+        <div class="sub-headline3">Rating : {{ tv.imdbRating }}</div>
 
-        <div class="sub-headline">Time: {{ tv.runtimeStr }}</div>
+        <div class="sub-headline">Time: {{ tv.Runtime }}</div>
         <div>
           <div class="sub-headline2">Genres:</div>
 
           <p-chips
             [(ngModel)]="tv.genreList"
             disabled="true"
-            field="key"
           ></p-chips>
         </div>
         <div>{{ tv.plot }}</div>
@@ -69,7 +68,7 @@
             label="Imdb"
             icon="pi pi-external-link"
             style="margin-right: 0.25em"
-            (click)="goToLink(tv.id)"
+            (click)="goToLink(tv.imdbID)"
           ></button>
         </p-footer>
       </p-card>

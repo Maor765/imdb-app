@@ -149,14 +149,6 @@ export class MoviesIMDBService {
     });
   }
 
-  // getMovieFromFile(file: File) {
-  //   const fileName = file.name;
-  //   if (fileName.endsWith('.mkv') || fileName.endsWith('.mp4')) {
-  //     return fileName;
-  //   }
-  //   return null;
-  // }
-
   getMovieFromFile(file: File) {
     const fileName = file.name;
     if (fileName.endsWith('.mkv') || fileName.endsWith('.mp4')) {
@@ -174,7 +166,7 @@ export class MoviesIMDBService {
         name = `${name} ${splitByDots[i]}`;
       }
 
-      return name;
+      return name; 
     }
     return null;
   }
@@ -188,7 +180,7 @@ export class MoviesIMDBService {
 
   clearData() {
     this.moviesMap.clear();
-
+    this.moviesData = [];
     localStorage.removeItem(this.localStorage_key);
   }
 }

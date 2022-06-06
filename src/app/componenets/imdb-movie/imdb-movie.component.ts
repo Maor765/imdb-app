@@ -1,4 +1,3 @@
-import { map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   NgxFileDropEntry,
@@ -57,7 +56,6 @@ export class ImdbMovieComponent implements OnInit, OnDestroy {
   }
 
   onChangeSort(){
-    // console.log(this.selectedSort);
     if(!this.selectedSort){
       this.moviesService.createMoviesData();
     } else {
@@ -80,7 +78,6 @@ export class ImdbMovieComponent implements OnInit, OnDestroy {
   }
 
   onChangeGenre(){
-    // console.log(this.selectedGenre);
     this.moviesService.createMoviesData();
     if(this.selectedGenre){
       this.moviesService.moviesData = this.filterUtilService.getAllGenres(this.selectedGenre, this.moviesService.moviesData);

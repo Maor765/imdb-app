@@ -12,8 +12,8 @@
     "electron-tsc": "tsc main.ts && ng build --base-href ./ && electron .",
     "electron": "ng build --base-href ./ && electron .",
     "electron-only": "electron .",
-    "electron-exe":"electron-packager . --overwrite",
-    "electron-build":"npm run electron && npm run electron-exe"
+    "electron-exe": "electron-packager . --overwrite",
+    "electron-build": "npm run electron && npm run electron-exe"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "@angular/router": "~9.1.0",
     "electron-packager": "15.2.0",
     "lodash": "4.17.21",
+    "moment": "2.29.3",
     "ngx-file-drop": "11.1.0",
     "ngx-spinner": "10.0.0",
     "primeicons": "4.1.0",
