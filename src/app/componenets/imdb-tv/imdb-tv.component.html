@@ -22,7 +22,7 @@
 
     <p-multiSelect  [options]="tvsService.allGenres"
      [(ngModel)]="selectedGenre" placeholder="Select a Genre"  maxSelectedLabels="5"
-      optionLabel="key" (onChange)="onChangeGenre()"> </p-multiSelect >
+      optionLabel="value" (onChange)="onChangeGenre()"> </p-multiSelect >
 
       <input type="text" (ngModelChange)="onChangeFilterInput($event)" pInputText [(ngModel)]="filterData"/>
 

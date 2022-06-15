@@ -1,7 +1,7 @@
 <div class="center">
   <div style="display: flex;justify-content: space-around;">
     <div style="display: flex;justify-content: space-around;align-items: center;">
-      Count : {{moviesService?.moviesData?.length}}
+      Count : {{moviesData?.length}}
     </div>
     <button
     pButton
@@ -12,7 +12,7 @@
     (click)="clearData()"
   ></button>
     
-    <p-dropdown [options]="filterUtilService.sortFieldsOptions"
+    <p-dropdown [options]="filterUtilService.sortFieldsOptions2"
      [(ngModel)]="selectedSort" placeholder="Select a Sort" 
      [showClear]="true" (onChange)="onChangeSort()"> </p-dropdown>
 
@@ -22,7 +22,7 @@
 
     <p-multiSelect  [options]="moviesService.allGenres"
      [(ngModel)]="selectedGenre" placeholder="Select a Genre"  maxSelectedLabels="5"
-      optionLabel="key" (onChange)="onChangeGenre()"> </p-multiSelect >
+      optionLabel="value" (onChange)="onChangeGenre()"> </p-multiSelect >
 
       <input type="text" (ngModelChange)="onChangeFilterInput($event)" pInputText [(ngModel)]="filterData"/>
 
@@ -36,31 +36,30 @@
     </ngx-file-drop>
   </div>
 
-    <ng-container *ngIf="moviesService?.moviesData?.length > 0">
+    <ng-container *ngIf="moviesData?.length > 0">
       <div class="card-container">
         <p-card
           *ngFor="
-            let movie of moviesService.moviesData;
+            let movie of moviesData;
             let i = index
           "
-          [header]="movie.title"
-          [subheader]="movie.releaseDate | date"
+          [header]="movie.Title"
+          [subheader]="movie.Released | date"
           [style]="{ width: '360px' }"
           styleClass="ui-card-shadow"
         >
           <p-header>
-            <img [src]="movie.image" />
+            <img [src]="movie.Poster" />
           </p-header>
           <div class="sub-headline3">
             Rating : {{ movie.imDbRating }}
           </div>
-          <div class="sub-headline">Time: {{ movie.runtimeStr }}</div>
+          <div class="sub-headline">Time: {{ movie.Runtime }}</div>
           <div>
             <div class="sub-headline2">Genres:</div>
             <p-chips
               [(ngModel)]="movie.genreList"
               disabled="true"
-              field="key"
             ></p-chips>
           </div>
           <div>{{ movie.plot }}</div>
@@ -72,7 +71,7 @@
               label="Imdb"
               icon="pi pi-external-link"
               style="margin-right: 0.25em"
-              (click)="goToLink(movie.id)"
+              (click)="goToLink(movie.imdbID)"
             ></button>
           </p-footer>
         </p-card>

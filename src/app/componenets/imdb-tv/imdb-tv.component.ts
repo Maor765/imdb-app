@@ -7,6 +7,7 @@ import { take } from 'rxjs/operators';
 import { OmdbMovie } from 'src/app/interfaces/omdb.movie.interface';
 import { FilterUtilService, ISortField } from 'src/app/services/filter-util.service';
 import { TvsIMDBService } from 'src/app/services/tvs-imdb.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-imdb-tv',
@@ -23,6 +24,7 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
   tvsData: Array<OmdbMovie> = [];
 
   constructor(public tvsService: TvsIMDBService,
+    public spinner: NgxSpinnerService,
     public filterUtilService:FilterUtilService) {}
 
   ngOnInit() {
@@ -37,23 +39,22 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
 
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
-    this.tvsService.spinner.show();
+    this.spinner.show();
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        // console.log(fileEntry);
         this.tvsService.extractTvNames(fileEntry);
       }
     }
 
-    console.log('////////////////FINISH//////////////');
-    console.log(this.tvsService.tvsNameMap);
+    // console.log('////////////////FINISH//////////////');
+    // console.log(this.tvsService.tvsNameMap);
 
     this.tvsService.getTvData();
 
     this.tvsService.fetchingDataStatus.pipe(take(1)).subscribe(res => {
       this.tvsData = this.tvsService.tvsData;
-      this.tvsService.spinner.hide();
+      this.spinner.hide();
     })
   }
 
@@ -95,9 +96,10 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
   }
 
   onChangeGenre(){
-    this.tvsData = this.tvsService.tvsData;
     if(this.selectedGenre){
-      this.tvsService.tvsData = this.filterUtilService.getAllGenres2(this.selectedGenre, this.tvsService.tvsData);
+      this.tvsData = this.filterUtilService.getAllGenres2(this.selectedGenre, this.tvsService.tvsData);
+    } else {
+      this.tvsData = this.tvsService.tvsData;
     }
   }
 }

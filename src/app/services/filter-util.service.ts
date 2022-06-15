@@ -74,7 +74,7 @@ export class FilterUtilService {
     moviesData.forEach( movie => {
         let found = true;
         selectedGenre.forEach(genre => {
-          if(!movie.genreList.find(mg => mg === genre.key)){
+          if(!movie.genreList.find(mg => mg === genre.value)){
             found = false;
           }
         })
