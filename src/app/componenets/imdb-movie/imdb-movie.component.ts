@@ -73,7 +73,7 @@ export class ImdbMovieComponent implements OnInit, OnDestroy {
     if(!this.selectedSort){
       this.moviesData = this.moviesService.moviesData2;
     } else {
-      this.moviesData = this.filterUtilService.sortBy2(this.selectedSort, this.moviesService.moviesData2);
+      this.moviesData = this.filterUtilService.sortBy(this.selectedSort, this.moviesService.moviesData2);
       if(this.isAsc){
         this.moviesData  = this.moviesData.reverse();
       }
@@ -93,7 +93,7 @@ export class ImdbMovieComponent implements OnInit, OnDestroy {
 
   onChangeGenre(){
     if(this.selectedGenre){
-      this.moviesData = this.filterUtilService.getAllGenres2(this.selectedGenre, this.moviesService.moviesData2);
+      this.moviesData = this.filterUtilService.getAllGenres(this.selectedGenre, this.moviesService.moviesData2);
 
     } else {
       this.moviesData = this.moviesService.moviesData2;

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ITitleResultIMDB } from '../interfaces/search-movie-imdb.interface';
 import {sortBy} from 'lodash';
 import { OmdbMovie } from '../interfaces/omdb.movie.interface';
 
@@ -45,31 +44,11 @@ export class FilterUtilService {
 
   }
 
-  sortBy(selectedSort: ISortField, moviesData: ITitleResultIMDB[]){
+  sortBy(selectedSort: ISortField, moviesData: OmdbMovie[]){
     return sortBy(moviesData,[selectedSort.field]);
   }
 
-  sortBy2(selectedSort: ISortField, moviesData: OmdbMovie[]){
-    return sortBy(moviesData,[selectedSort.field]);
-  }
-
-  getAllGenres(selectedGenre: any[], moviesData: ITitleResultIMDB[]){
-    const res = [];
-    moviesData.forEach( movie => {
-        let found = true;
-        selectedGenre.forEach(genre => {
-          if(!movie.genreList.find(mg => mg.key === genre.key)){
-            found = false;
-          }
-        })
-        if(found){
-          res.push(movie);
-        }
-    })
-    return res;
-  }
-
-  getAllGenres2(selectedGenre: any[], moviesData: OmdbMovie[]){
+  getAllGenres(selectedGenre: any[], moviesData: OmdbMovie[]){
     const res = [];
     moviesData.forEach( movie => {
         let found = true;

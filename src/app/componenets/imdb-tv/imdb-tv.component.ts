@@ -77,7 +77,7 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
     if(!this.selectedSort){
       this.tvsData = this.tvsService.tvsData;
     } else {
-      this.tvsData = this.filterUtilService.sortBy2(this.selectedSort, this.tvsService.tvsData);
+      this.tvsData = this.filterUtilService.sortBy(this.selectedSort, this.tvsService.tvsData);
       if(this.isAsc){
         this.tvsData  = this.tvsData.reverse();
       }
@@ -97,7 +97,7 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
 
   onChangeGenre(){
     if(this.selectedGenre){
-      this.tvsData = this.filterUtilService.getAllGenres2(this.selectedGenre, this.tvsService.tvsData);
+      this.tvsData = this.filterUtilService.getAllGenres(this.selectedGenre, this.tvsService.tvsData);
     } else {
       this.tvsData = this.tvsService.tvsData;
     }
