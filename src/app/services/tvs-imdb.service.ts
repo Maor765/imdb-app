@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { FileSystemFileEntry } from 'ngx-file-drop';
 import {
   ITitleResultIMDB,
@@ -65,7 +65,7 @@ export class TvsIMDBService {
             console.log('issue with tv more then 1: ', tvName, res.results);
           } else {
             this.updateMoviesCount++;
-            alert('movie not found :' + tvName);
+            alert('tv not found :' + tvName);
             console.log('issue with tv, no results: ', tvName, res.results);
             this.checkEndData();
             return;
@@ -76,7 +76,8 @@ export class TvsIMDBService {
           } else{
             this.updateMoviesCount++;
           }
-        })
+        }),
+        catchError((err, caught) => caught),
       )
       .toPromise();
   }

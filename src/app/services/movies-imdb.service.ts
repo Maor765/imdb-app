@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { FileSystemFileEntry } from 'ngx-file-drop';
 import {
   ITitleResultIMDB,
@@ -23,16 +23,18 @@ export class MoviesIMDBService {
 
   movies: string[] = [];
   moviesMap: Map<string, ITitleResultIMDB>;
-  moviesData:ITitleResultIMDB[];
+  moviesData: ITitleResultIMDB[];
 
-  allGenres:{key:string,value:string}[] = [];
+  allGenres: { key: string; value: string }[] = [];
 
   loading = false;
   updateMoviesCount = 0;
 
-  constructor(private http: HttpClient,
-     private spinner: NgxSpinnerService,
-     private imdbApiService:ImdbApiService) {
+  constructor(
+    private http: HttpClient,
+    private spinner: NgxSpinnerService,
+    private imdbApiService: ImdbApiService
+  ) {
     this.moviesMap = new Map<string, ITitleResultIMDB>();
     if (localStorage.getItem(this.localStorage_key)) {
       this.moviesData = [];
@@ -54,7 +56,11 @@ export class MoviesIMDBService {
 
   public searchMovie(movie: string): Promise<any> {
     return this.http
-      .get(`${this.base_url}${this.search_url}${this.imdbApiService.getApiKey()}/=${movie}`)
+      .get(
+        `${this.base_url}${
+          this.search_url
+        }${this.imdbApiService.getApiKey()}/=${movie}`
+      )
       .pipe(
         tap((res: ISearchIMDB) => {
           let res_movie;
@@ -72,19 +78,24 @@ export class MoviesIMDBService {
             return;
           }
 
-          if(!this.moviesMap.has(res_movie.id)){
+          if (!this.moviesMap.has(res_movie.id)) {
             this.getMovieDetails(res_movie.id).then().catch();
-          } else{
+          } else {
             this.updateMoviesCount++;
           }
-        })
+        }),
+        catchError((err, caught) => caught)
       )
       .toPromise();
   }
 
   public getMovieDetails(id: string): Promise<any> {
     return this.http
-      .get(`${this.base_url}${this.movie_url}${this.imdbApiService.getApiKey()}/${id}`)
+      .get(
+        `${this.base_url}${
+          this.movie_url
+        }${this.imdbApiService.getApiKey()}/${id}`
+      )
       .pipe(
         tap((res: ITitleResultIMDB) => {
           this.moviesMap.set(res.id, this.getData(res));
@@ -95,7 +106,7 @@ export class MoviesIMDBService {
       .toPromise();
   }
 
-  checkEndData(){
+  checkEndData() {
     if (this.movies.length === this.updateMoviesCount) {
       this.spinner.hide();
       this.getAllGenres();
@@ -104,29 +115,28 @@ export class MoviesIMDBService {
     }
   }
 
-  createMoviesData(){
-    this.moviesData = Array.from(this.moviesMap.entries()).map( elm => (elm[1]));
+  createMoviesData() {
+    this.moviesData = Array.from(this.moviesMap.entries()).map((elm) => elm[1]);
   }
 
-  getAllGenres(){
-    const allGenresMap:Map<string, any> = new Map();
-    Array.from(this.moviesMap.entries()).forEach( elm => {
+  getAllGenres() {
+    const allGenresMap: Map<string, any> = new Map();
+    Array.from(this.moviesMap.entries()).forEach((elm) => {
       const movie: ITitleResultIMDB = elm[1];
-      movie.genreList.forEach(genre => {
-        if(!allGenresMap.has(genre.key)){
+      movie.genreList.forEach((genre) => {
+        if (!allGenresMap.has(genre.key)) {
           allGenresMap.set(genre.key, genre);
         }
       });
     });
-    this.allGenres = Array.from(allGenresMap.entries()).map( elm => (elm[1]));
-
+    this.allGenres = Array.from(allGenresMap.entries()).map((elm) => elm[1]);
   }
 
   getData(res: ITitleResultIMDB) {
     return {
       id: res.id,
-      year:res.year,
-      runtimeMins:res.runtimeMins,
+      year: res.year,
+      runtimeMins: res.runtimeMins,
       title: res.title,
       image: res.image,
       releaseDate: res.releaseDate,
@@ -140,11 +150,11 @@ export class MoviesIMDBService {
   extractMovies(fileEntry: FileSystemFileEntry) {
     this.spinner.show();
     this.movies = [];
-    fileEntry.file((file: File) => {
+    fileEntry.file(async (file: File) => {
       const movie = this.getMovieFromFile(file);
       if (movie) {
         this.movies.push(movie);
-        this.searchMovie(movie).then().catch();
+        await this.searchMovie(movie).then().catch();
       }
     });
   }
