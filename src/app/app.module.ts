@@ -11,7 +11,6 @@ import {ButtonModule} from 'primeng-lts/button';
 import {ProgressSpinnerModule} from 'primeng-lts/progressspinner';
 import { MinutesToHours } from './pipes/minuts-to-hours.pipe';
 import {ChipsModule} from 'primeng-lts/chips';
-import { MoviesComponent } from './componenets/movies-old/movies.component';
 import { ImdbContainerComponent } from './componenets/imdb-container/imdb-container.component';
 import {TabViewModule} from 'primeng-lts/tabview';
 import { ImdbMovieComponent } from './componenets/imdb-movie/imdb-movie.component';
@@ -29,7 +28,6 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     MinutesToHours,
-    MoviesComponent,
     ImdbContainerComponent,
     ImdbMovieComponent,
     ImdbTvComponent,

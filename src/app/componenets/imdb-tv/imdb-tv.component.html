@@ -1,7 +1,7 @@
 <div class="center">
   <div style="display: flex;justify-content: space-around;">
     <div style="display: flex;justify-content: space-around;align-items: center;">
-      Count : {{tvsData?.length}}
+      Count : {{data?.length}}
     </div>
     <button
     pButton
@@ -36,21 +36,20 @@
     </ngx-file-drop>
   </div>
 
-  <ng-container *ngIf="tvsData?.length > 0">
+  <ng-container *ngIf="data?.length > 0">
     <div class="card-container">
       <p-card
-        *ngFor="let tv of tvsData ; let i = index"
+        *ngFor="let tv of data ; let i = index"
         [header]="tv.Title"
         [subheader]="tv.Released | date"
         [style]="{ width: '360px' }"
         styleClass="ui-card-shadow"
       >
         <p-header>
-          <img [src]="tv.Poster" />
+          <img class="image" [src]="tv.Poster" />
         </p-header>
         <div class="sub-headline3">Rating : {{ tv.imdbRating }}</div>
 
-        <div class="sub-headline">Time: {{ tv.Runtime }}</div>
         <div>
           <div class="sub-headline2">Genres:</div>
 
@@ -59,7 +58,7 @@
             disabled="true"
           ></p-chips>
         </div>
-        <div>{{ tv.plot }}</div>
+        <div>{{ tv.Plot }}</div>
 
         <p-footer>
           <button

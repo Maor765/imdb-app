@@ -21,14 +21,14 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
   isAsc:boolean  = false;
   filterData;
 
-  tvsData: Array<OmdbMovie> = [];
+  data: Array<OmdbMovie> = [];
 
   constructor(public tvsService: TvsIMDBService,
     public spinner: NgxSpinnerService,
     public filterUtilService:FilterUtilService) {}
 
   ngOnInit() {
-    this.tvsData = this.tvsService.tvsData;
+    this.data = this.tvsService.data;
   }
 
   ngOnDestroy(){
@@ -43,17 +43,17 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        this.tvsService.extractTvNames(fileEntry);
+        this.tvsService.extractNames(fileEntry);
       }
     }
 
     // console.log('////////////////FINISH//////////////');
     // console.log(this.tvsService.tvsNameMap);
 
-    this.tvsService.getTvData();
+    this.tvsService.getData();
 
     this.tvsService.fetchingDataStatus.pipe(take(1)).subscribe(res => {
-      this.tvsData = this.tvsService.tvsData;
+      this.data = this.tvsService.data;
       this.spinner.hide();
     })
   }
@@ -64,7 +64,7 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
   }
 
   clearData(){
-    this.tvsData = [];
+    this.data = [];
     this.tvsService.clearData();
   }
 
@@ -75,31 +75,31 @@ export class ImdbTvComponent implements OnInit, OnDestroy {
   
   onChangeSort(){
     if(!this.selectedSort){
-      this.tvsData = this.tvsService.tvsData;
+      this.data = this.tvsService.data;
     } else {
-      this.tvsData = this.filterUtilService.sortBy(this.selectedSort, this.tvsService.tvsData);
+      this.data = this.filterUtilService.sortBy(this.selectedSort, this.tvsService.data);
       if(this.isAsc){
-        this.tvsData  = this.tvsData.reverse();
+        this.data  = this.data.reverse();
       }
     }
   }
 
   ascDescChange($event){
-    this.tvsData = this.tvsData.reverse();
+    this.data = this.data.reverse();
   }
 
   onChangeFilterInput($event){
-    this.tvsData = this.tvsService.tvsData;
-    this.tvsData= this.tvsService.tvsData.filter((movie) => {
+    this.data = this.tvsService.data;
+    this.data= this.tvsService.data.filter((movie) => {
       return movie.Title.toLocaleLowerCase().includes($event.toLocaleLowerCase());
     });
   }
 
   onChangeGenre(){
     if(this.selectedGenre){
-      this.tvsData = this.filterUtilService.getAllGenres(this.selectedGenre, this.tvsService.tvsData);
+      this.data = this.filterUtilService.getAllGenres(this.selectedGenre, this.tvsService.data);
     } else {
-      this.tvsData = this.tvsService.tvsData;
+      this.data = this.tvsService.data;
     }
   }
 }
