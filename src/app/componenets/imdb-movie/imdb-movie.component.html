@@ -1,31 +1,53 @@
 <div class="center">
-  <div style="display: flex;justify-content: space-around;">
-    <div style="display: flex;justify-content: space-around;align-items: center;">
-      Count : {{data?.length}}
+  <div class="header-actions">
+    <div
+      style="display: flex; justify-content: space-around; align-items: center"
+    >
+      Count : {{ data?.length }}
     </div>
     <button
-    pButton
-    type="button"
-    label="Clear data"
-    icon="pi pi-trash"
-    style="margin-right: 0.25em"
-    (click)="clearData()"
-  ></button>
-    
-    <p-dropdown [options]="filterUtilService.sortFieldsOptions2"
-     [(ngModel)]="selectedSort" placeholder="Select a Sort" 
-     [showClear]="true" (onChange)="onChangeSort()"> </p-dropdown>
+      pButton
+      type="button"
+      label="Clear data"
+      icon="pi pi-trash"
+      style="margin-right: 0.25em"
+      (click)="clearData()"
+    ></button>
 
-     <p-toggleButton onLabel="Desc" offLabel="Asc" 
-     (onChange)="ascDescChange($event)"
-     offIcon="pi pi-sort-alpha-up" onIcon="pi pi-sort-alpha-down" [(ngModel)]="isAsc"></p-toggleButton>
+    <p-dropdown
+      [options]="filterUtilService.sortFieldsOptions2"
+      [(ngModel)]="selectedSort"
+      placeholder="Select a Sort"
+      [showClear]="true"
+      (onChange)="onChangeSort()"
+    >
+    </p-dropdown>
 
-    <p-multiSelect  [options]="moviesService.allGenres"
-     [(ngModel)]="selectedGenre" placeholder="Select a Genre"  maxSelectedLabels="5"
-      optionLabel="value" (onChange)="onChangeGenre()"> </p-multiSelect >
+    <p-toggleButton
+      onLabel="Desc"
+      offLabel="Asc"
+      (onChange)="ascDescChange($event)"
+      offIcon="pi pi-sort-alpha-up"
+      onIcon="pi pi-sort-alpha-down"
+      [(ngModel)]="isAsc"
+    ></p-toggleButton>
 
-      <input type="text" (ngModelChange)="onChangeFilterInput($event)" pInputText [(ngModel)]="filterData"/>
+    <p-multiSelect
+      [options]="moviesService.allGenres"
+      [(ngModel)]="selectedGenre"
+      placeholder="Select a Genre"
+      maxSelectedLabels="5"
+      optionLabel="value"
+      (onChange)="onChangeGenre()"
+    >
+    </p-multiSelect>
 
+    <input
+      type="text"
+      (ngModelChange)="onChangeFilterInput($event)"
+      pInputText
+      [(ngModel)]="filterData"
+    />
   </div>
 
   <div style="margin: 10px">
@@ -36,46 +58,37 @@
     </ngx-file-drop>
   </div>
 
-    <ng-container *ngIf="data?.length > 0">
-      <div class="card-container">
-        <p-card
-          *ngFor="
-            let movie of data;
-            let i = index
-          "
-          [header]="movie.Title"
-          [subheader]="movie.Released | date"
-          [style]="{ width: '360px' }"
-          styleClass="ui-card-shadow"
-        >
-          <p-header>
-            <img class="image"  [src]="movie.Poster" />
-          </p-header>
-          <div class="sub-headline3">
-            Rating : {{ movie.imdbRating }}
-          </div>
-          <div class="sub-headline">Time: {{ movie.Runtime }}</div>
-          <div>
-            <div class="sub-headline2">Genres:</div>
-            <p-chips
-              [(ngModel)]="movie.genreList"
-              disabled="true"
-            ></p-chips>
-          </div>
-          <div>{{ movie.Plot }}</div>
+  <ng-container *ngIf="data?.length > 0">
+    <div class="card-container">
+      <p-card
+        *ngFor="let movie of data; let i = index"
+        [header]="movie.Title"
+        [subheader]="movie.Released | date"
+        [style]="{ width: '360px' }"
+        styleClass="ui-card-shadow"
+      >
+        <p-header>
+          <img class="image" [src]="movie.Poster" />
+        </p-header>
+        <div class="sub-headline3">Rating : {{ movie.imdbRating }}</div>
+        <div class="sub-headline">Time: {{ movie.Runtime }}</div>
+        <div>
+          <div class="sub-headline2">Genres:</div>
+          <p-chips [(ngModel)]="movie.genreList" disabled="true"></p-chips>
+        </div>
+        <div>{{ movie.Plot }}</div>
 
-          <p-footer>
-            <button
-              pButton
-              type="button"
-              label="Imdb"
-              icon="pi pi-external-link"
-              style="margin-right: 0.25em"
-              (click)="goToLink(movie.imdbID)"
-            ></button>
-          </p-footer>
-        </p-card>
-      </div>
-    </ng-container>
-
+        <p-footer>
+          <button
+            pButton
+            type="button"
+            label="Imdb"
+            icon="pi pi-external-link"
+            style="margin-right: 0.25em"
+            (click)="goToLink(movie.imdbID)"
+          ></button>
+        </p-footer>
+      </p-card>
+    </div>
+  </ng-container>
 </div>

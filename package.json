@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4202",
+    "start2": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve --port 4202",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

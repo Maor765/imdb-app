@@ -1,0 +1,26 @@
+repos:
+  # - repo: https://github.com/chaseappio/git-hooks-chase-exact
+  #   rev: v1.2.0
+  #   hooks:
+  #     - id: chase-exact
+  # - repo: https://github.com/pre-commit/mirrors-eslint
+  #   rev: v8.6.0
+  #   hooks:
+  #     - id: eslint
+  #       additional_dependencies:
+  #       - eslint
+  #       - eslint-plugin-import
+  #       - eslint-plugin-prettier
+  #       - eslint-config-prettier
+  #       - prettier
+  #       files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
+  #       types: [file]
+  # - repo: https://github.com/godaddy/tartufo
+  #   rev: v2.10.1
+  #   hooks:
+  #     - id: tartufo
+  #       args: [--config, tartufo.toml, -x, tartufo.ignore, pre-commit]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.5.1
+    hooks:
+      - id: prettier
