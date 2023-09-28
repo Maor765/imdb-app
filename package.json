@@ -14,7 +14,8 @@
     "electron": "ng build --base-href ./ && electron .",
     "electron-only": "electron .",
     "electron-exe": "electron-packager . --overwrite",
-    "electron-build": "npm run electron && npm run electron-exe"
+    "electron-build": "npm run electron && npm run electron-exe",
+    "firebase-deploy": "firebase deploy --only hosting:imdbapp-9680c"
   },
   "private": true,
   "dependencies": {

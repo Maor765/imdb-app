@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    databaseURL: 'YOUR_DATABASE_URL',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID'
-  }
+    apiKey: 'AIzaSyAEdXPLmymRVFfT1mWRExhVZO4MIIfHzNA',
+    authDomain: 'imdbapp-9680c.firebaseapp.com',
+    projectId: 'imdbapp-9680c',
+    storageBucket: 'imdbapp-9680c.appspot.com',
+    messagingSenderId: '668195668517',
+    appId: '1:668195668517:web:9a9f3299232a6ccb59f5cc',
+    measurementId: 'G-14MJ8VJK2D',
+  },
 };
 
 /*

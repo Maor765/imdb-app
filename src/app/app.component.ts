@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -6,13 +7,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  constructor() {}
-  
-  ngOnInit() {
+  constructor(private firebaseService: FirebaseService) {}
 
+  ngOnInit() {}
+
+  ngOnDestroy() {}
+
+  test() {
+    this.firebaseService.test();
   }
-
-  ngOnDestroy(){
-  }
-
 }
